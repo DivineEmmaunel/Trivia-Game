@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <title>Trivia game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <!-- Landing Page -->
+    <div id="landing-page">
+        <h1>A math Quiz</h1>
+        <form id="nameForm">
+            <input type="text" name="name" placeholder="Insert Name" id="nameInput">
+            <button type="submit">Enter</button>
+        </form>
+    </div>
+    <!-- Greeting Section -->
+    <div id="greeting">
+        <h2 id="greetingText"></h2>
+        <button onclick="startQuiz()">Click to start quiz</button>
+    </div>
+    <!-- Question Section -->
+    <div class="questions" id="quizSection" style="display: none">
+        <p id="questionText"></p>
+        <ul id="optionList"></ul>
+        <button onclick="checkAnswer()" id="nextButton">Next Question</button>
+        <p id="correctAnswer"></p>
+        <p id="scoreDisplay" style="display: none;"></p>
+    </div>
+</div>
+<script src="trivia.js"></script>
+</body>
+</html>
