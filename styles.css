@@ -1,0 +1,21 @@
+/* styles goes here */
+.container{
+    border: black solid 1px;
+    justify-content: center;
+    padding: 20px;
+    height: 300px;
+    width: 300px;
+    background-color: #fff;
+
+}
+h1 {
+    color:#156135;
+}
+#greetingText{
+    color: #156135;
+}
+#nameInput{
+    border-radius: 4px;
+    cursor: grab;
+    background-color:rgb(199, 185, 185);
+}
