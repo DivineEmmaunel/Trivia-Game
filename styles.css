@@ -1,21 +1,306 @@
-/* styles goes here */
-.container{
-    border: black solid 1px;
-    justify-content: center;
-    padding: 20px;
-    height: 300px;
-    width: 300px;
-    background-color: #fff;
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Test your mathematical knowledge with our interactive math trivia game.">
+    <title>Math Trivia Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <main class="container">
+
+        <!-- Landing Page -->
+        <section id="landing-page" class="screen">
+            <div class="icon">🧮</div>
+            <h1>Math Trivia</h1>
+            <p>Challenge yourself and test your mathematical skills!</p>
+
+            <form id="nameForm">
+                <input
+                    type="text"
+                    id="nameInput"
+                    placeholder="Enter your name"
+                    maxlength="30"
+                    required
+                >
+                <button type="submit">Get Started</button>
+            </form>
+        </section>
+
+        <!-- Greeting Section -->
+        <section id="greeting" class="screen hidden">
+            <div class="icon">👋</div>
+            <h2 id="greetingText"></h2>
+            <p>Are you ready to test your knowledge?</p>
+            <button id="startButton" type="button">Start Quiz</button>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quizSection" class="screen hidden">
+
+            <div class="quiz-header">
+                <span id="questionCounter"></span>
+                <span id="scoreDisplay">Score: 0</span>
+            </div>
+
+            <div class="progress-track">
+                <div id="progressBar"></div>
+            </div>
+
+            <h2 id="questionText"></h2>
+
+            <div id="optionList" class="options"></div>
+
+            <p id="feedback" aria-live="polite"></p>
+
+            <button id="nextButton" type="button" disabled>
+                Check Answer
+            </button>
+
+        </section>
+
+        <!-- Result 
+/* General styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #e8f5ed, #d1e9dc);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #222;
+}
+
+/* Main container */
+.container {
+    background-color: #fff;
+    width: 100%;
+    max-width: 500px;
+    min-height: 400px;
+    padding: 35px;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    text-align: center;
+}
+
+/* Screens */
+.screen {
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.icon {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
 h1 {
-    color:#156135;
+    color: #156135;
+    margin-bottom: 15px;
 }
-#greetingText{
+
+h2 {
+    color: #156135;
+    margin-bottom: 20px;
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+/* Form */
+form {
+    margin-top: 25px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    outline: none;
+}
+
+input[type="text"]:focus {
+    border-color: #156135;
+}
+
+/* Buttons */
+button {
+    background-color: #156135;
+    color: white;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s;
+}
+
+button:hover:not(:disabled) {
+    background-color: #0e4525;
+}
+
+button:disabled {
+    background-color: #9aafa1;
+    cursor: not-allowed;
+}
+
+/* Quiz header */
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    color: #156135;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Progress bar */
+.progress-track {
+    width: 100%;
+    height: 9px;
+    background-color: #e5e5e5;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+#progressBar {
+    height: 100%;
+    width: 0%;
+    background-color: #156135;
+    transition: width 0.3s ease;
+}
+
+/* Questions */
+#questionText {
+    text-align: left;
+    font-size: 19px;
+    line-height: 1.5;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    transition: 0.2s;
+}
+
+.option:hover {
+    background-color: #e8f5ed;
+    border-color: #156135;
+}
+
+.option input {
+    accent-color: #156135;
+}
+
+.option.selected {
+    background-color: #e8f5ed;
+    border: 2px solid #156135;
+}
+
+.option.correct {
+    background-color: #d9f5e1;
+    border-color: #218838;
+}
+
+.option.wrong {
+    background-color: #ffe0e0;
+    border-color: #dc3545;
+}
+
+/* Feedback */
+#feedback {
+    font-weight: bold;
+    min-height: 25px;
+    margin: 15px 0;
+}
+
+#feedback.success {
+    color: #218838;
+}
+
+#feedback.error {
+    color: #dc3545;
+}
+
+/* Results */
+#finalScore {
+    font-size: 24px;
+    font-weight: bold;
     color: #156135;
 }
-#nameInput{
-    border-radius: 4px;
-    cursor: grab;
-    background-color:rgb(199, 185, 185);
+
+#percentage {
+    font-size: 20px;
+    font-weight: bold;
 }
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+    .container {
+        padding: 25px 18px;
+    }
+
+    #questionText {
+        font-size: 17px;
+    }
+
+    .quiz-header {
+        font-size: 12px;
+    }
+}
+ -->
+        <section id="resultSection" class="screen hidden">
+            <div class="icon">🏆</div>
+            <h1>Quiz Completed!</h1>
+
+            <h2 id="finalGreeting"></h2>
+            <p id="finalScore"></p>
+            <p id="percentage"></p>
+            <p id="resultMessage"></p>
+
+            <button id="restartButton" type="button">
+                Play Again
+            </button>
+        </section>
+
+    </main>
+
+    <script src="trivia.js"></script>
+</body>
+</html>
