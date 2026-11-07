@@ -1,35 +1,85 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport">
-    <title>Trivia game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Test your mathematical knowledge with our interactive math trivia game.">
+    <title>Math Trivia Game</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-<div class="container">
-    <!-- Landing Page -->
-    <div id="landing-page">
-        <h1>A math Quiz</h1>
-        <form id="nameForm">
-            <input type="text" name="name" placeholder="Insert Name" id="nameInput">
-            <button type="submit">Enter</button>
-        </form>
-    </div>
-    <!-- Greeting Section -->
-    <div id="greeting">
-        <h2 id="greetingText"></h2>
-        <button onclick="startQuiz()">Click to start quiz</button>
-    </div>
-    <!-- Question Section -->
-    <div class="questions" id="quizSection" style="display: none">
-        <p id="questionText"></p>
-        <ul id="optionList"></ul>
-        <button onclick="checkAnswer()" id="nextButton">Next Question</button>
-        <p id="correctAnswer"></p>
-        <p id="scoreDisplay" style="display: none;"></p>
-    </div>
-</div>
-<script src="trivia.js"></script>
+
+    <main class="container">
+
+        <!-- Landing Page -->
+        <section id="landing-page" class="screen">
+            <div class="icon">🧮</div>
+            <h1>Math Trivia</h1>
+            <p>Challenge yourself and test your mathematical skills!</p>
+
+            <form id="nameForm">
+                <input
+                    type="text"
+                    id="nameInput"
+                    placeholder="Enter your name"
+                    maxlength="30"
+                    required
+                >
+                <button type="submit">Get Started</button>
+            </form>
+        </section>
+
+        <!-- Greeting Section -->
+        <section id="greeting" class="screen hidden">
+            <div class="icon">👋</div>
+            <h2 id="greetingText"></h2>
+            <p>Are you ready to test your knowledge?</p>
+            <button id="startButton" type="button">Start Quiz</button>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quizSection" class="screen hidden">
+
+            <div class="quiz-header">
+                <span id="questionCounter"></span>
+                <span id="scoreDisplay">Score: 0</span>
+            </div>
+
+            <div class="progress-track">
+                <div id="progressBar"></div>
+            </div>
+
+            <h2 id="questionText"></h2>
+
+            <div id="optionList" class="options"></div>
+
+            <p id="feedback" aria-live="polite"></p>
+
+            <button id="nextButton" type="button" disabled>
+                Check Answer
+            </button>
+
+        </section>
+
+        <!-- Result Section -->
+        <section id="resultSection" class="screen hidden">
+            <div class="icon">🏆</div>
+            <h1>Quiz Completed!</h1>
+
+            <h2 id="finalGreeting"></h2>
+            <p id="finalScore"></p>
+            <p id="percentage"></p>
+            <p id="resultMessage"></p>
+
+            <button id="restartButton" type="button">
+                Play Again
+            </button>
+        </section>
+
+    </main>
+
+    <script src="trivia.js"></script>
 </body>
 </html>
